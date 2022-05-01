@@ -1,23 +1,28 @@
+import { useContext } from "react";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
-
 import { Layout, Menu } from "antd";
 import {
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
+
+import { UiContext } from "../context/UiContext";
+
 import { Login } from "./Login";
 import { Queue } from "./Queue";
-import { CreateTicket } from "./CreateTicket";
 import { Desk } from "./Desk";
+import { CreateTicket } from "./CreateTicket";
 
 const { Sider, Content } = Layout;
 
 export const RouterPage = () => {
+  const { isMenuHide } = useContext(UiContext);
+
   return (
     <Router>
       <Layout style={{ height: "100vh" }}>
-        <Sider collapsedWidth={0} breakpoint="md">
+        <Sider collapsedWidth={0} breakpoint="md" hidden={isMenuHide}>
           <div className="logo" />
           <Menu
             theme="dark"
