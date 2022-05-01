@@ -9,7 +9,7 @@ import {
 import { Login } from "./Login";
 import { Queue } from "./Queue";
 import { CreateTicket } from "./CreateTicket";
-import { Desktop } from "./Desktop";
+import { Desk } from "./Desk";
 
 const { Sider, Content } = Layout;
 
@@ -55,7 +55,7 @@ export const RouterPage = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/queue" element={<Queue />} />
               <Route path="/create-ticket" element={<CreateTicket />} />
-              <Route path="/desktop" element={<Desktop />} />
+              <Route path="/desk" element={<Desk />} />
               <Route path="/*" element={<Login />} />
             </Routes>
           </Content>
