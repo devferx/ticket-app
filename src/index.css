@@ -1,5 +1,12 @@
 @import 'antd/dist/antd.css';
 
+.center-content-col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;
   font-size: 18px;
