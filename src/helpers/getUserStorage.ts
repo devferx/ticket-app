@@ -1,6 +1,6 @@
 export const getUserStorage = () => {
   return {
-    agent: localStorage.getItem("agent"),
-    desk: localStorage.getItem("desk"),
+    agent: JSON.parse(localStorage.getItem("agent")!),
+    desk: JSON.parse(localStorage.getItem("desk")!),
   };
 };

@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Button, Col, Divider, Row, Typography } from "antd";
 import { CloseCircleOutlined, RightOutlined } from "@ant-design/icons";
 
+import { SocketContext } from "../context/SocketContext";
 import { useHideMenu } from "../hooks/useHideMenu";
 import { getUserStorage } from "../helpers/getUserStorage";
+import { Ticket } from "../interface/ticket";
 
 const { Title, Text } = Typography;
 
 export const Desk = () => {
   const [user] = useState(getUserStorage());
+  const { socket } = useContext(SocketContext);
+  const [ticket, setTicket] = useState<Ticket | null>();
   const navigate = useNavigate();
   useHideMenu(false);
 
@@ -21,7 +25,9 @@ export const Desk = () => {
   };
 
   const nextTicket = () => {
-    console.log("next ticket");
+    socket.emit("next-ticket-to-attend", user, (ticket: Ticket) => {
+      setTicket(ticket);
+    });
   };
 
   if (!user.agent || !user.desk) {
@@ -45,14 +51,16 @@ export const Desk = () => {
         </Col>
       </Row>
       <Divider />
-      <Row>
-        <Col>
-          <Text>You are attending ticket number: </Text>
-          <Text style={{ fontSize: 30 }} type="danger">
-            55
-          </Text>
-        </Col>
-      </Row>
+      {ticket && (
+        <Row>
+          <Col>
+            <Text>You are attending ticket number: </Text>
+            <Text style={{ fontSize: 30 }} type="danger">
+              {ticket.number}
+            </Text>
+          </Col>
+        </Row>
+      )}
 
       <Row>
         <Col style={{ display: "flex" }} offset={18} span={6}>
