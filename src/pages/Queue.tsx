@@ -4,6 +4,7 @@ import { Card, Col, List, Row, Tag, Typography, Divider } from "antd";
 import { useHideMenu } from "../hooks/useHideMenu";
 import { SocketContext } from "../context/SocketContext";
 import { Ticket } from "../interface/ticket";
+import { getLast } from "../helpers/getLast";
 
 const { Title, Text } = Typography;
 
@@ -11,6 +12,10 @@ export const Queue = () => {
   const { socket } = useContext(SocketContext);
   const [tickets, setTickets] = useState<Ticket[]>([]);
   useHideMenu(true);
+
+  useEffect(() => {
+    getLast().then((lastTickets) => setTickets(lastTickets));
+  }, []);
 
   useEffect(() => {
     socket.on("assigned-tickets", (assignedTickets: Ticket[]) => {
